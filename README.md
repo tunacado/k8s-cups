@@ -15,3 +15,34 @@ To remove this example from your cluster, do:
 ```
 $ kubectl delete pods,jobs,svc,cm -l=app=cups
 ```
+
+## Testing
+A simple test job has been provided to check your service connectivity to the CUPS server.
+
+To deploy the job, do:
+```
+$ kubectl create -f cups-test.yaml
+```
+
+Inspect it like so:
+```
+$ kubectl get jobs
+NAME        COMPLETIONS   DURATION   AGE
+cups-test   0/1           6s         6s
+
+$ kubectl get pods
+NAME              READY     STATUS      RESTARTS   AGE
+cups              1/1       Running     0          29s
+cups-test-2m8sw   0/1       Completed   0          19s
+```
+
+Inspect the pod it creates; success has a code of "200":
+```
+$ kubectl logs cups-test-2m8sw
+200
+```
+
+Delete the job like so:
+```
+$ kubectl delete job cups-test
+```

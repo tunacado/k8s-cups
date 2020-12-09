@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cups-files
+  labels:
+    app: cups
+data:
+  cups-files.conf: |
+    SystemGroup sys root wheel
+    AccessLog /var/log/cups/access_log
+    ErrorLog /var/log/cups/error_log
+    PageLog /var/log/cups/page_log

@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cups-entrypoint
+  namespace: cups
+  labels:
+    name: cups-entrypoint
+data:
+  entrypoint.sh: |
+    #!/bin/bash
+    
+    # Start CUPS server
+    /usr/sbin/cupsd -f &
+
+    # Wait for it to come online
+    CUPS_TIMEOUT=30
+    i=0
+    i=0
+    while [ ${i} -lt ${CUPS_TIMEOUT} ] && lpstat -r | grep -q 'not running'; do
+      i=$(($i+1))
+      sleep 1
+    done
+
+    # Check if it came online successfully
+    if lpstat -r | grep -q 'not running'; then
+      echo "CUPS is not running"
+    else
+      echo "CUPS has started"
+      # Put other necessary tasks, like connecting to devices and print queues
+      # below this line.
+      
+    fi
+
+    while true; do
+      sleep 60
+    done

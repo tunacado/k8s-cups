@@ -1,0 +1,49 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: cups
+  namespace: cups
+  labels:
+    app: cups
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: cups:latest
+  source:
+    dockerfile: |
+      FROM registry.redhat.io/ubi8-minimal
+      COPY ./entrypoint /usr/bin
+      COPY ./etc-pki-entitlement /etc/pki/entitlement
+      COPY ./rhsm-conf /etc/rhsm
+      COPY ./rhsm-ca /etc/rhsm/ca
+      RUN rm /etc/rhsm-host && \
+        chmod 777 /usr/bin/entrypoint.sh && \
+        microdnf install -y \
+        --enablerepo=rhel-8-for-x86_64-appstream-rpms \
+        --enablerepo=rhel-8-for-x86_64-baseos-rpms \
+        cups \
+        cups-client \
+        hplip
+      EXPOSE 631
+      ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+    type: Dockerfile
+    configMaps:
+    - configMap:
+        name: cups-entrypoint
+      destinationDir: entrypoint
+    - configMap:
+        name: rhsm-conf
+      destinationDir: rhsm-conf
+    - configMap:
+        name: rhsm-ca
+      destinationDir: rhsm-ca
+    secrets:
+    - secret:
+        name: etc-pki-entitlement
+      destinationDir: etc-pki-entitlement
+  strategy:
+    dockerStrategy: {}
+    type: Docker
+  triggers:
+  - type: ConfigChange

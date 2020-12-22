@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ocp4-cups
+  namespace: cups
+  labels:
+    app: cups
+spec:
+  containers:
+  - name: ocp4-cups
+    image: image-registry.openshift-image-registry.svc:5000/cups/cups:latest
+    ports:
+    - containerPort: 631
+      protocol: TCP
+      name: ipp
+    volumeMounts:
+    - name: cups-config
+      mountPath: /etc/cups/cupsd.conf
+      subPath: cupsd.conf
+    - name: cups-files
+      mountPath: /etc/cups/cups-files.conf
+      subPath: cups-files.conf
+  volumes:
+  - name: cups-config
+    configMap:
+      name: cups-conf
+  - name: cups-files
+    configMap:
+      name: cups-files

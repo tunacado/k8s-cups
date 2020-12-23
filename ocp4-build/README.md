@@ -27,9 +27,9 @@ $ oc create configmap rhsm-conf --from-file /etc/rhsm/rhsm.conf
 $ oc create configmap rhsm-ca --from-file /etc/rhsm/ca/redhat-uep.pem
 ```
 
-- Create the entrypoint script `configMap`:
+- Assuming you are in the `ocp4-build` directory, create the entrypoint script `configMap` from the previous directory:
 ```
-$ oc create -f entrypoint-cm.yaml
+$ oc create configmap cups-entrypoint --from-file ../entrypoint.sh
 ```
 
 - Create the destination `ImageStream`:

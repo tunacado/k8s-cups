@@ -7,8 +7,8 @@ metadata:
     app: cups
 spec:
   ports:
-  - name: "631"
-    port: 631
+  - name: "6631"
+    port: 6631
     protocol: TCP
     targetPort: 631
   selector:

@@ -10,7 +10,7 @@ spec:
   - name: ocp4-cups
     image: image-registry.openshift-image-registry.svc:5000/cups/cups:latest
     ports:
-    - containerPort: 631
+    - containerPort: 6631
       protocol: TCP
       name: ipp
     volumeMounts:

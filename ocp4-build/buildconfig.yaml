@@ -17,6 +17,10 @@ spec:
       COPY ./etc-pki-entitlement /etc/pki/entitlement
       COPY ./rhsm-conf /etc/rhsm
       COPY ./rhsm-ca /etc/rhsm/ca
+      ENV CUPS_CONF=/etc/cups
+      ENV CUPS_LOGS=/var/log/cups
+      ENV CUPS_SPOOL=/var/spool/cups
+      ENV CUPS_CACHE=/var/cache/cups
       RUN rm /etc/rhsm-host && \
         chmod 777 /usr/bin/entrypoint.sh && \
         microdnf install -y \
@@ -25,7 +29,18 @@ spec:
         cups \
         cups-client \
         hplip
-      EXPOSE 631
+      RUN mkdir -p ${CUPS_CACHE}
+      RUN chgrp -R 0 ${CUPS_CONF} && \
+          chgrp -R 0 ${CUPS_LOGS} && \
+          chgrp -R 0 ${CUPS_SPOOL} && \
+          chgrp -R 0 ${CUPS_CACHE} && \
+          chmod -R g=u ${CUPS_CONF} && \
+          chmod -R g=u ${CUPS_LOGS} && \
+          chmod -R g=u ${CUPS_SPOOL} && \
+          chmod -R g=u ${CUPS_CACHE} && \
+          chmod -R g=u /etc/passwd
+      EXPOSE 6631
+      USER 1001
       ENTRYPOINT ["/usr/bin/entrypoint.sh"]
     type: Dockerfile
     configMaps:

@@ -10,7 +10,7 @@ spec:
   - name: cups
     image: quay.io/robbmanes/cups:latest
     ports:
-    - containerPort: 631
+    - containerPort: 6631
       protocol: TCP
       name: ipp
     volumeMounts:
@@ -20,6 +20,7 @@ spec:
     - name: cups-files
       mountPath: /etc/cups/cups-files.conf
       subPath: cups-files.conf
+    imagePullPolicy: Always
   volumes:
   - name: cups-config
     configMap:

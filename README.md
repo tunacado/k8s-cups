@@ -13,7 +13,7 @@ $ kubectl create -f namespace.yaml -f cups-conf.yaml -f cups-files.yaml -f pod.y
 ## Teardown
 To remove this example from your cluster, do:
 ```
-$ kubectl delete pods,jobs,svc,cm -l=app=cups
+$ kubectl delete pods,jobs,svc,cm,namespace -l=app=cups
 ```
 
 ## Testing

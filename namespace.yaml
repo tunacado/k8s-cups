@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: cups
   labels:
-    name: cups
+    app: cups

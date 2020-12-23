@@ -4,4 +4,4 @@ metadata:
   name: cups
   namespace: cups
   labels:
-    name: cups
+    app: cups

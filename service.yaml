@@ -7,10 +7,10 @@ metadata:
     app: cups
 spec:
   ports:
-  - name: "6631"
-    port: 6631
+  - name: cups
+    port: 631
     protocol: TCP
-    targetPort: 631
+    targetPort: 6631
   selector:
     app: cups
   type: ClusterIP

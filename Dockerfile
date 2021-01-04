@@ -9,6 +9,7 @@ ENV CUPS_CONF=/etc/cups
 ENV CUPS_LOGS=/var/log/cups
 ENV CUPS_SPOOL=/var/spool/cups
 ENV CUPS_CACHE=/var/cache/cups
+ENV CUPS_RUN=/var/run
 
 # Install necessary packages
 RUN microdnf install -y \
@@ -24,10 +25,12 @@ RUN chgrp -R 0 ${CUPS_CONF} && \
     chgrp -R 0 ${CUPS_LOGS} && \
     chgrp -R 0 ${CUPS_SPOOL} && \
     chgrp -R 0 ${CUPS_CACHE} && \
+    chgrp -R 0 ${CUPS_RUN} && \
     chmod -R g=u ${CUPS_CONF} && \
     chmod -R g=u ${CUPS_LOGS} && \
     chmod -R g=u ${CUPS_SPOOL} && \
     chmod -R g=u ${CUPS_CACHE} && \
+    chmod -R g=u ${CUPS_RUN} && \
     chmod -R g=u /etc/passwd
 
 # We listen on non-standard port 6631 as rootless cannot

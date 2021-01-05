@@ -20,6 +20,9 @@ spec:
     - name: cups-files
       mountPath: /etc/cups/cups-files.conf
       subPath: cups-files.conf
+    - name: client-conf
+      mountPath: /etc/cups/client.conf
+      subPath: client.conf
     imagePullPolicy: Always
   volumes:
   - name: cups-config
@@ -28,3 +31,6 @@ spec:
   - name: cups-files
     configMap:
       name: cups-files
+  - name: client-conf
+    configMap:
+      name: client-conf

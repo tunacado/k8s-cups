@@ -7,7 +7,7 @@ This is a series of sample YAML files that stand up a CUPS print server running 
 ## Deployment
 To deploy this example directly to your OpenShift or Kubernetes cluster do:
 ```
-$ kubectl create -f namespace.yaml -f cups-conf.yaml -f cups-files.yaml -f pod.yaml -f service.yaml
+$ kubectl create -f namespace.yaml -f cups-conf.yaml -f cups-files.yaml -f client-conf.yaml -f pod.yaml -f service.yaml
 ```
 
 ## Teardown

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: client-conf
+  namespace: cups
+  labels:
+    app: cups
+data:
+  client.conf: |
+    ServerName 127.0.0.1:6631
